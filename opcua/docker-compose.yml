@@ -1,0 +1,53 @@
+version: "3.2"
+name: opcua
+services:
+
+  opcua-gateway:
+    container_name: opcua-gateway
+    # Image is maintained under: https://github.com/thin-edge/opcua-device-gateway-container
+    image: ghcr.io/thin-edge/opcua-device-gateway:20240116.1516
+    restart: always
+    network_mode: "host"
+    extra_hosts:
+      - "takebishi-device-gateway:127.0.0.1"
+    environment:
+      # OPCUA Gateway info
+      - OPCUA_GATEWAY_IDENTIFIER=${OPCUA_GATEWAY_IDENTIFIER:-tedgeOPCUAGateway}
+      - OPCUA_GATEWAY_NAME=${OPCUA_GATEWAY_NAME:-thin-edge OPCUA gateway}
+
+      # thin-edge.io MQTT broker
+      - MQTT_BROKER=localhost:1883
+    volumes:
+    - type: bind
+      source: /etc/opcua
+      target: /data
+    # Provide access to thin-edge.io configuration
+    - type: bind
+      source: /etc/tedge
+      target: /etc/tedge
+
+  takebishi-device-gateway:
+    container_name: takebishi-device-gateway
+    image: public.ecr.aws/takebishi/tkbs-dgwd20:latest-arm
+    restart: always
+    network_mode: "host"
+    environment:
+      - webport=80
+      - websport=443
+#    ports:
+#      - "8080:80"
+#      - "443:443"
+#      - "52220:52220"
+#      - "21:21"
+#      - "30000-30009:30000-30009"
+#      - "57510:57510"
+#    devices:
+#      - "/dev/ttyACM0"
+#      - "/dev/hidraw0"
+    volumes:
+      - type: bind
+        source: /etc/takebishi/sd_card
+        target: /mnt/sdcard
+      - type: bind
+        source: /etc/takebishi/data
+        target: /etc/dxpgateway

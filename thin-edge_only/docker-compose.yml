@@ -1,0 +1,29 @@
+version: "3.2"
+name: takebishi
+services:
+
+  takebishi-device-gateway:
+    container_name: takebishi-device-gateway
+    image: public.ecr.aws/takebishi/tkbs-dgwd20:latest-arm
+    restart: always
+    network_mode: "host"
+    environment:
+      - webport=80
+      - websport=443
+#    ports:
+#      - "8080:80"
+#      - "443:443"
+#      - "52220:52220"
+#      - "21:21"
+#      - "30000-30009:30000-30009"
+#      - "57510:57510"
+#    devices:
+#      - "/dev/ttyACM0"
+#      - "/dev/hidraw0"
+    volumes:
+      - type: bind
+        source: /etc/takebishi/sd_card
+        target: /mnt/sdcard
+      - type: bind
+        source: /etc/takebishi/data
+        target: /etc/dxpgateway
