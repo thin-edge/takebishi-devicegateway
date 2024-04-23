@@ -5,7 +5,7 @@ services:
   opcua-gateway:
     container_name: opcua-gateway
     # Image is maintained under: https://github.com/thin-edge/opcua-device-gateway-container
-    image: ghcr.io/thin-edge/opcua-device-gateway:20240116.1516
+    image: ghcr.io/thin-edge/opcua-device-gateway
     restart: always
     network_mode: "host"
     extra_hosts:
@@ -28,7 +28,7 @@ services:
 
   takebishi-device-gateway:
     container_name: takebishi-device-gateway
-    image: public.ecr.aws/takebishi/tkbs-dgwd20:latest-arm
+    image: public.ecr.aws/takebishi/tkbs-dgwd20
     restart: always
     network_mode: "host"
     environment:

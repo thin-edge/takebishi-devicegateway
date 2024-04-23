@@ -4,7 +4,7 @@ services:
 
   takebishi-device-gateway:
     container_name: takebishi-device-gateway
-    image: public.ecr.aws/takebishi/tkbs-dgwd20:latest-arm
+    image: public.ecr.aws/takebishi/tkbs-dgwd20
     restart: always
     network_mode: "host"
     environment:

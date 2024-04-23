@@ -81,6 +81,7 @@ Once we are adding data sources in the DeviceGateway they will automatically sho
 Here are two examples utilizing the simulation features within Takebishi DeviceGateway to send data to Cumulocity.
 
 [Example with OPC-UA](/docs/example_opc_ua.md)
+
 [Example with MQTT](/docs/example_mqtt.md)
 
 ## Optional features
